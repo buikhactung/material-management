@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Suppliers</title>
+</head>
+<body>
+<p>
+    <a th:href="@{/}">Back to homepage</a>
+</p>
+<p>
+    <a href="/create-supplier">Create new supplier</a>
+</p>
+<h1>Supplier</h1>
+<table border="1">
+    <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Address</th>
+        <th>Edit</th>
+        <th>Delete</th>
+        <th>List materials</th>
+    </tr>
+    <th:block th:each="supplier : ${suppliers}">
+        <tr>
+            <td th:text="${supplier.name}"></td>
+            <td th:text="${supplier.description}"></td>
+            <td th:text="${supplier.address}"></td>
+            <td><a th:href="@{/edit-supplier/__${supplier.id}__ }">Edit</a></td>
+            <td><a th:href="@{/delete-supplier/__${supplier.id}__ }">Delete</a></td>
+            <td><a th:href="@{/list-materrials/__${supplier.id}__ }">List materials</a></td>
+        </tr>
+    </th:block>
+</table>
+<div>
+    <a th:href="@{'/suppliers'(page=${suppliers.number - 1})}" th:if="${suppliers.hasPrevious()}">Previous</a>
+    <span th:text="${suppliers.number + 1}"></span>/<span th:text="${suppliers.totalPages}"></span>
+    <a th:href="@{'/suppliers'(page=${suppliers.number + 1})}" th:if="${suppliers.hasNext()}">Next</a>
+</div>
+</body>
+</html>
